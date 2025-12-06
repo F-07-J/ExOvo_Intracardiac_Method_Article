@@ -24,21 +24,7 @@ This script is designed for images where the background contains a blue haze and
 
 Processing Steps (also shared with the green background script)
 
-Gaussian background subtraction
-
-LAB-based contrast enhancement
-
-HSV conversion
-
-Binary masking
-
-Morphology cleaning
-
-Connected-component filtering
-
-Replace background with black
-
-Save final processed image
+Gaussian background subtraction, LAB-based contrast enhancement, HSV conversion, Binary masking, Morphology cleaning, Connected-component filtering, Replace background with black, and then Save final processed image
 
  Key Adjustable Parameters
 
@@ -124,6 +110,13 @@ Morphological operations remove noise. Contours are drawn smoothly using edge de
 
 Following is the example output the image that is processed earlier with preprocessing script then further passed to the Cell pose segmentation.
 
+Example Output Produced by the Cellpose Segmentation Script
 
+Input → Preprocess → Cellpose Mask → Watershed
+<p float="left"> <img src="assets/Cellpose_seg_out/Snap-8319_STEP1_INPUT.png" width="200" /> <img src="assets/Cellpose_seg_out/Snap-8319_STEP2_PREPROCESS.png" width="200" /> <img src="assets/Cellpose_seg_out/Snap-8319_STEP3_CELLPOSE_MASK.png" width="200" /> <img src="assets/Cellpose_seg_out/Snap-8319_STEP4_WATERSHED.png" width="200" /> </p>
+Final Output
+<p float="left"> <img src="assets/Cellpose_seg_out/Snap-8319_STEP6_EXPLANATION.png" width="900" /> </p>
 
+### 2b. Otsu Thresholding Based Method:
 
+This script performs automatic detection and classification of green and blue fluorescent cells using a lightweight segmentation pipeline based on Otsu thresholding and the watershed algorithm. The image is first pre-processed by enhancing the green and blue channels, reducing noise with Gaussian blur, and normalizing contrast. Instead of using Cellpose, the script applies global Otsu thresholding followed by distance-transform-based watershed splitting to separate touching cells. Each segmented region is then analyzed pixel-by-pixel to determine whether it represents a green or blue cell, using soft color-dominance rules to detect even faint signals. Clean contours are drawn using bilateral filtering and Canny edges for smooth visualization. The script also measures how many blue cells lie within a 75-pixel radius of each green cell and generates both an annotated image and a summary table. This makes the method fast, lightweight, and reliable for datasets with strong backgrounds or low-intensity fluorescence.
