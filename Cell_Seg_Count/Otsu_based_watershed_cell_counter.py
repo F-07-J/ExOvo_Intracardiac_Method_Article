@@ -7,8 +7,8 @@ from scipy import ndimage as ndi
 import os
 import pandas as pd
 
-IMAGE_PATH = "/content/Mock_DAY_5_Dataset/mOCK_DAY_5_BK_ISO_NEW_IMG/Snap-8441a.jpeg"
-OUTPUT_DIR = "/content/Mock_Day_05_Results"
+IMAGE_PATH = "ENTER YOUR INPUT IMAGE PATH HERE (BACKGROUND REMOVED)"
+OUTPUT_DIR = "ENTER YOUR OUTPUT FOLDER PATH"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 base_name = os.path.splitext(os.path.basename(IMAGE_PATH))[0]
@@ -162,7 +162,7 @@ for cell_id in range(1, labels_ws.max() + 1):
         draw_perfect_contour(mask_bin, (255, 0, 0))  # blue
 
 # 5. 75PX RADIUS ANALYSIS
-RADIUS = 75
+RADIUS = 75 # INSERT YOUR DESIRED PROXIMITY ANALYSIS VALUE
 table_data = []
 
 for label_g, gx, gy in green_cells:
