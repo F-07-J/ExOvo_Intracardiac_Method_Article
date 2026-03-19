@@ -1,24 +1,25 @@
-# Microscopy-Cell-Detection-and-Quantification
+# Microscopy-Cell-Segmentation-and-Quantification
+These scripts were used to perform the cell segmentation and counting for statistical analysis associated with the study titled:
 
-Ref: https://github.com/mouseland/cellpose
+**"Protocol for intracardiac delivery and live imaging of NK–tumor interactions in an ex ovo chick embryo model."**
 
-A Python-based fluorescence microscopy analysis pipeline for automated detection and quantification of green and blue cells.
-Includes background removal, contrast enhancement, noise suppression, and cell counting using classical image processing and optional Cellpose integration.
+It provides a structured and reproducible workflow for data processing and analysis.
 
-## 1. Preprocessing Scripts
-1a. bg_removal_blue_mode.py
+# Introduction:
+In the protocol for intracardiac delivery and live imaging of NK–tumor interactions in an ex ovo chick embryo model, segmentation is performed to identify two types of cells: Hoechst-labeled NK cells, which appear as blue fluorescent cells, and GFP-positive neuroblastoma cells, which appear as green fluorescent cells. The segmentation approach vary depending on the signal quality and the imaging time point.
 
-1b. bg_removal_green_mode.py
+A Python-based analysis scripts are designed for the segmentation and quantification of both cell types. The workflow includes classical image processing techniques as well as deep learning-based methods.
 
+**Note:** The scripts can also be used in the Google Colab environment by uploading the dataset, eliminating the need for local setup. The `notebooks/` folder contains a ready-to-use Google Colab notebook along with detailed instructions and a complete explanation of the workflow.
 
-These two scripts are used for the preprocessing of fluorescence microscopy images.
-Our dataset contains two different types of images based on their background color:
+The provided scripts are ready to use and can be executed by simply specifying the dataset path, which is clearly indicated within scripts. There are certain parameters may need to be adjusted depending on the dataset; these parameters and their effects are explained below in the description of scripts.
 
-Images with a blue fluorescence background
+## 1. Preprocessing
+Before segmentation, background removal is performed, as fluorescence image backgrounds can significantly interfere with accurate cell detection. The dataset used in this study contains two types of images based on their background color:
+- `bg_removal_blue_mode.py` – Preprocessing script for images with blue fluorescence background.
+- `bg_removal_green_mode.py` – Preprocessing script for images with green fluorescence background.
 
-Images with a green fluorescence background
-
-Because the color distribution and background noise are different in these two datasets, we use two separate preprocessing pipelines, each tuned for its respective background color.
+Because the color distribution and background noise are different in these two datasets, we use two separate preprocessing scripts, each tuned for its respective background color.
 
 ### 1a. Description of bg_removal_blue_mode.py:
 
@@ -72,11 +73,11 @@ The script also uses CLAHE enhancement (clipLimit = 3.0) to amplify visibility o
 
 These parameters can be adjusted based on the fluorescence strength and noise level across different image batches.
 
-## 2. Cell Segmentation:
+## 2. Cell_Seg_Count:
 
-For the cell segmentation flowing are the two methods used Cellpose and the watershed.
+The following scripts are available in the folder.
 
-2a. Cellpose based segmentation
+2a. Otsu based 
 
 2b. Otsu Thresholding based Method
 
