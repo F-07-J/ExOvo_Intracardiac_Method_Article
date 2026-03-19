@@ -31,18 +31,25 @@ Gaussian background subtraction, LAB-based contrast enhancement, HSV conversion,
 
 #### Key Adjustable Parameters
 
-The blue-background preprocessing script allows several parameters to be tuned depending on the image intensity and noise level. The blue detection is primarily controlled by the hue range (75–160) and the relaxed saturation (≥45) and brightness thresholds (≥80), which help capture weak blue cells.
+The key parameters have been pre-adjusted for this script. However, if the results are not satisfactory for your dataset, you can fine-tune the parameters using the table provided below.
+
+| Parameter | Default | ↑ Increase Effect | ↓ Decrease Effect | Range |
+|---|---|---|---|---|
+| `BLUR_KERNEL` | 31 *(odd only)* | Stronger haze removal | Preserves faint signal | 21–51 |
+| `BLUE_HUE_MIN` | 75 | Pure blue only | Includes cyan/teal | 65–90 |
+| `BLUE_HUE_MAX` | 160 | Includes violet/purple | Pure blue only | 140–165 |
+| `BLUE_SAT_MIN` | 45 | Vivid blue only | Catches weak blue ⚠ | 25–65 |
+| `BLUE_DOMINANCE` | 25 | Rejects green overlap | Catches faint blue ⚠ | 8–30 |
+| `GREEN_DOMINANCE` | 6 | Pure green only | Catches pale green | 4–15 |
+| `MIN_BLUE_AREA` | 80 px | Removes noise specks | Keeps small fragments | 40–120 |
+| `MIN_FINAL_AREA` | 120 px | Large cells only ⚠ | Keeps small cells + noise | 80–300 |
+| `GREEN_SUPPRESS` | 0.40 | More green retained | Purer blue, may darken | 0.25–0.55 |
+
+The blue detection is primarily controlled by the hue range (75–160) and the relaxed saturation (≥45) and brightness thresholds (≥80), which help capture weak blue cells.
 
 Additionally, a blue-dominance rule (B > G + 25 and B > R + 25) ensures that even faint blue cells are detected while suppressing non-cell regions.
 
-Two levels of area filtering are applied:
-
-- **Initial minimum area:** 80 px – removes small noise artifacts
-- **Final minimum area:** 120 px – retains only valid cell regions
-
-Since blue cells often contain small green interference dots, the script includes color-correction parameters, reducing the green channel to 40% and the red channel to 85% for pixels classified as “only blue.” These parameters can be relaxed or tightened depending on how strong or weak the blue fluorescence appears in the dataset.
-
-Below is the example output produced using the following script.
+Below is the example output.
 
 Original → Background Subtracted → Enhanced
 <p float="left"> <img src="assets/blue/01_original.png" width="230" /> <img src="assets/blue/02_subtracted.png" width="230" /> <img src="assets/blue/03_enhanced.png" width="230" /> </p>
@@ -60,14 +67,22 @@ This script is optimized for images where the background contains green fluoresc
 
 #### Key Adjustable Parameters
 
-The green-background preprocessing script uses flexible thresholds to preserve even faint green fluorescence. The primary HSV mask uses a wide hue range (25–105) with relaxed saturation (>5) and value (>15) limits, allowing detection of low-intensity green cells.
+The key parameters have been pre-adjusted for this script. However, if the results are not satisfactory for your dataset, you can fine-tune the parameters using the table provided below.
 
-The secondary green-intensity mask relies on green dominance (G > R + 5 and G > B + 5) to keep genuine cells while suppressing background noise.
+| Parameter | Default | ↑ Increase Effect | ↓ Decrease Effect | Range |
+|---|---|---|---|---|
+| `BLUR_KERNEL` | 41 *(odd only)* | Stronger background removal | Preserves faint signal | 21–51 |
+| `GREEN_HUE_MIN` | 25 | Excludes yellow-green | Includes yellow/orange | 15–45 |
+| `GREEN_HUE_MAX` | 105 | Includes cyan-green | Pure green only | 90–120 |
+| `GREEN_SAT_MIN` | 5 | Vivid green only | Catches very faint green ⚠ | 5–40 |
+| `GREEN_BRIGHT_MIN` | 15 | Rejects dark regions | Catches dim cells ⚠ | 10–50 |
+| `GREEN_DOMINANCE` | 5 | Pure green only | Catches pale/weak green ⚠ | 3–20 |
+| `GREEN_INTENSITY` | 14 | Rejects very dark pixels | Catches extremely dim cells | 10–40 |
+| `MIN_CELL_SIZE` | 3 px | Removes noise specks | Keeps tiny fragments ⚠ | 3–100 |
 
-Since some green cells may be extremely small, the minimum connected-component size is set to 3 pixels, making the detection permissive.
+The green-background preprocessing script uses flexible thresholds to preserve even faint green fluorescence. The primary HSV mask uses a wide hue range (25–105) with relaxed saturation (>5) and value (>15) limits, allowing detection of low-intensity green cells. The secondary green-intensity mask relies on green dominance (G > R + 5 and G > B + 5) to keep genuine cells while suppressing background noise.
 
-The script also uses CLAHE enhancement (clipLimit = 3.0) to amplify visibility of dim and small green cells. These parameters can be adjusted based on the fluorescence strength and noise level across different image batches.
-
+The script also uses CLAHE enhancement (clipLimit = 3.0) to amplify visibility of dim and small green cells.
 ## 2. Cell_Seg_Count:
 
 Once the background has been removed from the images, you can proceed with segmentation and proximity analysis using the Step 04 scripts. You may try both methods and choose the one that provides better results for your data. It is recommended to first try the Otsu-based method, as it does not require GPU support and is faster to execute, whereas the Cellpose-based method requires GPU access and may take longer to run. The following scripts are available in the folder.
