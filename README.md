@@ -144,3 +144,7 @@ Input → Preprocess → Cellpose Mask → Watershed
 <p float="left"> <img src="assets/Cellpose_seg_out/Snap-8319_STEP1_INPUT.png" width="200" /> <img src="assets/Cellpose_seg_out/Snap-8319_STEP2_PREPROCESS.png" width="200" /> <img src="assets/Cellpose_seg_out/Snap-8319_STEP3_CELLPOSE_MASK.png" width="200" /> <img src="assets/Cellpose_seg_out/Snap-8319_STEP4_WATERSHED.png" width="200" /> </p>
 Final Output
 <p float="left"> <img src="assets/Cellpose_seg_out/Snap-8319_STEP6_EXPLANATION.png" width="500" /> </p>
+
+# REFERENCE:
+
+Stringer, C., Wang, T., Michaelos, M. et al. Cellpose: a generalist algorithm for cellular segmentation. Nat Methods 18, 100–106 (2021). https://doi.org/10.1038/s41592-020-01018-x
