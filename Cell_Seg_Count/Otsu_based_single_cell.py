@@ -7,8 +7,8 @@ from skimage.segmentation import watershed
 from scipy import ndimage as ndi
 import os
 
-IMAGE_PATH = "/content/Group_Control_day_05_dataset/COntrol_day_5_bk_iso/Snap-8380z.jpeg"
-OUTPUT_DIR = "/content/Control_Group_Day_05_Results"
+IMAGE_PATH = "ENTER YOUR INPUT IMAGE PATH HERE (BACKGROUND REMOVED)"
+OUTPUT_DIR = "ENTER YOUR OUTPUT FOLDER PATH HERE"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 base_name = os.path.splitext(os.path.basename(IMAGE_PATH))[0]

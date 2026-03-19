@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import os
 
 # Input and Output Paths
-img_path = r"/content/Snap-8380z.jpeg"
-output_folder = r"/content/Group_Control_day_05_dataset/COntrol_day_5_bk_iso"
+img_path = r"ENTER YOUR INPUT IMAGE PATH HERE"
+output_folder = r"ENTER YOUR OUTPUT FOLDER PATH HERE"
 
 os.makedirs(output_folder, exist_ok=True)
 bgr = cv2.imread(img_path)
